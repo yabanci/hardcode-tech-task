@@ -1,0 +1,6 @@
+@hardcode_tech_task_HostAddress = http://localhost:5014
+
+GET {{hardcode_tech_task_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
