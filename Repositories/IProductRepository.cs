@@ -1,0 +1,4 @@
+public interface IProductRepository : IRepository<Product>
+{
+    IEnumerable<Product> GetByCategoryId(int categoryId);
+}
