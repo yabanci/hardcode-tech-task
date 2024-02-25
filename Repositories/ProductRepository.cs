@@ -11,7 +11,15 @@ namespace Repositories
 
         public IEnumerable<Product> GetAll() => _products;
 
-        public Product GetById(int id) => _products.FirstOrDefault(p => p.Id == id);
+        public Product GetById(int id)
+        {
+            var product = _products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
+            {
+                throw new ArgumentException($"Product with ID {id} not found.");
+            }
+            return product;
+        }
 
         public void Add(Product product) => _products.Add(product);
 

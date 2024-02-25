@@ -11,7 +11,15 @@ namespace Repositories
 
         public IEnumerable<Category> GetAll() => _categories;
 
-        public Category GetById(int id) => _categories.FirstOrDefault(c => c.Id == id);
+        public Category GetById(int id)
+        {
+            var category = _categories.FirstOrDefault(c => c.Id == id);
+            if (category == null)
+            {
+                throw new ArgumentException($"Category with ID {id} not found.");
+            }
+            return category;
+        }
 
         public void Add(Category category) => _categories.Add(category);
 
