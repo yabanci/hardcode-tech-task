@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using Models;
 using Services;
 using System;
-using System.Collections.Generic;
 
 namespace Controllers
 {
@@ -21,10 +20,19 @@ namespace Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Category> GetAllCategories()
+        public IActionResult GetAllCategories()
         {
-            _logger.LogInformation("Retrieving all categories.");
-            return _categoryService.GetAllCategories();
+            try
+            {
+                _logger.LogInformation("Retrieving all categories.");
+                var categories = _categoryService.GetAllCategories();
+                return Ok(categories);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred while retrieving categories: {ex.Message}");
+                return BadRequest("An error occurred while retrieving categories.");
+            }
         }
 
         [HttpPost]
@@ -39,7 +47,7 @@ namespace Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"An error occurred while adding the category: {ex.Message}");
-                return StatusCode(500, "An error occurred while processing your request.");
+                return BadRequest($"An error occurred while adding the category: {ex.Message}");
             }
         }
 
@@ -61,7 +69,7 @@ namespace Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"An error occurred while updating the category: {ex.Message}");
-                return StatusCode(500, "An error occurred while processing your request.");
+                return BadRequest($"An error occurred while updating the category: {ex.Message}");
             }
         }
 
@@ -77,7 +85,7 @@ namespace Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"An error occurred while deleting the category: {ex.Message}");
-                return StatusCode(500, "An error occurred while processing your request.");
+                return BadRequest($"An error occurred while deleting the category: {ex.Message}");
             }
         }
     }

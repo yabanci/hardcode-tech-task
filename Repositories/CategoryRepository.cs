@@ -20,7 +20,15 @@ namespace Repositories
             return category;
         }
 
-        public void Add(Category category) => _categories.Add(category);
+        public void Add(Category category)
+        {
+            if (_categories.Any(c => c.Id == category.Id))
+            {
+                throw new ArgumentException($"Category with ID {category.Id} already exists.");
+            }
+
+            _categories.Add(category);
+        }
 
         public void Update(Category category)
         {

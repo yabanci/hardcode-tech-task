@@ -20,7 +20,15 @@ namespace Repositories
             return product;
         }
 
-        public void Add(Product product) => _products.Add(product);
+        public void Add(Product product)
+        {
+            if (_products.Any(c => c.Id == product.Id))
+            {
+                throw new ArgumentException($"Product with ID {product.Id} already exists.");
+            }
+
+            _products.Add(product);
+        }
 
         public void Update(Product product)
         {

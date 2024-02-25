@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using Models;
 using Services;
 using System;
-using System.Collections.Generic;
 
 namespace Controllers
 {
@@ -21,23 +20,40 @@ namespace Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Product> GetAllProducts()
+        public IActionResult GetAllProducts()
         {
-            _logger.LogInformation("Retrieving all products.");
-            return _productService.GetAllProducts();
+            try
+            {
+                _logger.LogInformation("Retrieving all products.");
+                var products = _productService.GetAllProducts();
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred while retrieving products: {ex.Message}");
+                return BadRequest("An error occurred while retrieving products.");
+            }
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Product> GetProductById(int id)
+        public IActionResult GetProductById(int id)
         {
-            _logger.LogInformation($"Retrieving product with ID {id}.");
-            var product = _productService.GetProductById(id);
-            if (product == null)
+            try
             {
-                _logger.LogWarning($"Product with ID {id} not found.");
-                return NotFound();
+                _logger.LogInformation($"Retrieving product with ID {id}.");
+                var product = _productService.GetProductById(id);
+                if (product == null)
+                {
+                    _logger.LogWarning($"Product with ID {id} not found.");
+                    return NotFound($"Product with ID {id} not found.");
+                }
+                return Ok(product);
             }
-            return product;
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred while retrieving the product: {ex.Message}");
+                return BadRequest($"An error occurred while retrieving the product with ID {id}.");
+            }
         }
 
         [HttpPost]
@@ -52,7 +68,7 @@ namespace Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"An error occurred while adding the product: {ex.Message}");
-                return StatusCode(500, "An error occurred while processing your request.");
+                return BadRequest($"An error occurred while adding the product: {ex.Message}");
             }
         }
 
@@ -74,7 +90,7 @@ namespace Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"An error occurred while updating the product: {ex.Message}");
-                return StatusCode(500, "An error occurred while processing your request.");
+                return BadRequest($"An error occurred while updating the product: {ex.Message}");
             }
         }
 
@@ -90,15 +106,24 @@ namespace Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"An error occurred while deleting the product: {ex.Message}");
-                return StatusCode(500, "An error occurred while processing your request.");
+                return BadRequest($"An error occurred while deleting the product: {ex.Message}");
             }
         }
 
         [HttpGet("category/{categoryId}")]
-        public IEnumerable<Product> GetProductsByCategoryId(int categoryId)
+        public IActionResult GetProductsByCategoryId(int categoryId)
         {
-            _logger.LogInformation($"Retrieving products with category ID {categoryId}.");
-            return _productService.GetByCategoryId(categoryId);
+            try
+            {
+                _logger.LogInformation($"Retrieving products with category ID {categoryId}.");
+                var products = _productService.GetByCategoryId(categoryId);
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred while retrieving products with category ID {categoryId}: {ex.Message}");
+                return BadRequest($"An error occurred while retrieving products with category ID {categoryId}: {ex.Message}");
+            }
         }
     }
 }
