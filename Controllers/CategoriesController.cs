@@ -1,43 +1,49 @@
+using Models;
+using Services;
+
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-[ApiController]
-[Route("api/[controller]")]
-public class CategoriesController : ControllerBase
+namespace Controllers
 {
-    private readonly ICategoryService _categoryService;
-
-    public CategoriesController(ICategoryService categoryService)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class CategoriesController : ControllerBase
     {
-        _categoryService = categoryService;
-    }
+        private readonly ICategoryService _categoryService;
 
-    [HttpGet]
-    public IEnumerable<Category> GetAllCategories() => _categoryService.GetAllCategories();
-
-    [HttpPost]
-    public IActionResult AddCategory(Category category)
-    {
-        _categoryService.AddCategory(category);
-        return Ok();
-    }
-
-    [HttpPut("{id}")]
-    public IActionResult UpdateCategory(int id, Category category)
-    {
-        if (id != category.Id)
+        public CategoriesController(ICategoryService categoryService)
         {
-            return BadRequest();
+            _categoryService = categoryService;
         }
 
-        _categoryService.UpdateCategory(category);
-        return Ok();
-    }
+        [HttpGet]
+        public IEnumerable<Category> GetAllCategories() => _categoryService.GetAllCategories();
 
-    [HttpDelete("{id}")]
-    public IActionResult DeleteCategory(int id)
-    {
-        _categoryService.DeleteCategory(id);
-        return Ok();
+        [HttpPost]
+        public IActionResult AddCategory(Category category)
+        {
+            _categoryService.AddCategory(category);
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateCategory(int id, Category category)
+        {
+            if (id != category.Id)
+            {
+                return BadRequest();
+            }
+
+            _categoryService.UpdateCategory(category);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCategory(int id)
+        {
+            _categoryService.DeleteCategory(id);
+            return Ok();
+        }
     }
 }

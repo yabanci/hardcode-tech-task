@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 
-public interface IRepository<T>
+namespace Models
 {
-    IEnumerable<T> GetAll();
-    T GetById(int id);
-    void Add(T entity);
-    void Update(T entity);
-    void Delete(int id);
+    public interface IRepository<T>
+    {
+        IEnumerable<T> GetAll();
+        T GetById(int id);
+        void Add(T entity);
+        void Update(T entity);
+        void Delete(int id);
+    }
 }

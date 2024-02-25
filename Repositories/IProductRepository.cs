@@ -1,4 +1,9 @@
-public interface IProductRepository : IRepository<Product>
+using Models;
+
+namespace Repositories
 {
-    IEnumerable<Product> GetByCategoryId(int categoryId);
+    public interface IProductRepository : IRepository<Product>
+    {
+        IEnumerable<Product> GetByCategoryId(int categoryId);
+    }
 }

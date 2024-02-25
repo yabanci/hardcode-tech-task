@@ -1,9 +1,15 @@
-public interface IProductService
+using Models;
+using Repositories;
+
+namespace Services
 {
-    IEnumerable<Product> GetAllProducts();
-    IEnumerable<Product> GetByCategoryId(int categoryId);
-    Product GetProductById(int id);
-    void AddProduct(Product product);
-    void UpdateProduct(Product product);
-    void DeleteProduct(int id);
+    public interface IProductService
+    {
+        IEnumerable<Product> GetAllProducts();
+        IEnumerable<Product> GetByCategoryId(int categoryId);
+        Product GetProductById(int id);
+        void AddProduct(Product product);
+        void UpdateProduct(Product product);
+        void DeleteProduct(int id);
+    }
 }

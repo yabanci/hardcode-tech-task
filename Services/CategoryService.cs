@@ -1,19 +1,25 @@
+using Models;
+using Repositories;
+
 using System.Collections.Generic;
 
-public class CategoryService : ICategoryService
+namespace Services
 {
-    private readonly ICategoryRepository _categoryRepository;
-
-    public CategoryService(ICategoryRepository categoryRepository)
+    public class CategoryService : ICategoryService
     {
-        _categoryRepository = categoryRepository;
+        private readonly ICategoryRepository _categoryRepository;
+
+        public CategoryService(ICategoryRepository categoryRepository)
+        {
+            _categoryRepository = categoryRepository;
+        }
+
+        public IEnumerable<Category> GetAllCategories() => _categoryRepository.GetAll();
+
+        public void AddCategory(Category category) => _categoryRepository.Add(category);
+
+        public void UpdateCategory(Category category) => _categoryRepository.Update(category);
+
+        public void DeleteCategory(int id) => _categoryRepository.Delete(id);
     }
-
-    public IEnumerable<Category> GetAllCategories() => _categoryRepository.GetAll();
-
-    public void AddCategory(Category category) => _categoryRepository.Add(category);
-
-    public void UpdateCategory(Category category) => _categoryRepository.Update(category);
-
-    public void DeleteCategory(int id) => _categoryRepository.Delete(id);
 }

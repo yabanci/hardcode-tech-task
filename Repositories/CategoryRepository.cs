@@ -1,31 +1,36 @@
+using Models;
+
 using System.Collections.Generic;
 using System.Linq;
 
-public class CategoryRepository : ICategoryRepository
+namespace Repositories
 {
-    private readonly List<Category> _categories = new List<Category>();
-
-    public IEnumerable<Category> GetAll() => _categories;
-
-    public Category GetById(int id) => _categories.FirstOrDefault(c => c.Id == id);
-
-    public void Add(Category category) => _categories.Add(category);
-
-    public void Update(Category category)
+    public class CategoryRepository : ICategoryRepository
     {
-        var existingCategory = GetById(category.Id);
-        if (existingCategory != null)
+        private readonly List<Category> _categories = new List<Category>();
+
+        public IEnumerable<Category> GetAll() => _categories;
+
+        public Category GetById(int id) => _categories.FirstOrDefault(c => c.Id == id);
+
+        public void Add(Category category) => _categories.Add(category);
+
+        public void Update(Category category)
         {
-            existingCategory.Name = category.Name;
+            var existingCategory = GetById(category.Id);
+            if (existingCategory != null)
+            {
+                existingCategory.Name = category.Name;
+            }
         }
-    }
 
-    public void Delete(int id)
-    {
-        var category = GetById(id);
-        if (category != null)
+        public void Delete(int id)
         {
-            _categories.Remove(category);
+            var category = GetById(id);
+            if (category != null)
+            {
+                _categories.Remove(category);
+            }
         }
     }
 }

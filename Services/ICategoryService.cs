@@ -1,7 +1,13 @@
-public interface ICategoryService
+using Models;
+using Repositories;
+
+namespace Services
 {
-    IEnumerable<Category> GetAllCategories();
-    void AddCategory(Category category);
-    void UpdateCategory(Category category);
-    void DeleteCategory(int id);
+    public interface ICategoryService
+    {
+        IEnumerable<Category> GetAllCategories();
+        void AddCategory(Category category);
+        void UpdateCategory(Category category);
+        void DeleteCategory(int id);
+    }
 }
