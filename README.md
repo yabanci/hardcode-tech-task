@@ -13,7 +13,7 @@ To run this project locally, follow these steps:
 2. **Clone Repository:** Clone this repository to your local machine.
    
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/yabanci/hardcode-tech-task
     ```
 
 3. Navigate to Project Directory: Open a terminal and navigate to the project directory.
@@ -97,3 +97,13 @@ You can use tools like Postman or curl to interact with the API endpoints.
 - **Response:** Returns a 200 OK response if the product is successfully deleted, or a 404 Not Found error if the product does not exist.
 
 For more detailed information on each endpoint, including request and response examples, please refer to the [API documentation](http://localhost:PORT/swagger/index.html).
+
+## Tests
+* Tests are not available yet (qalai jondeid mynany eeemoe?)
+    * Error message:
+        `Exited with error: Error:
+            An assembly specified in the application dependencies manifest (testhost.deps.json) was not found:
+                package: 'Microsoft.TestPlatform.CommunicationUtilities', version: '17.8.0-release-23578-02'
+                path: 'Microsoft.TestPlatform.CommunicationUtilities.dll'.
+            Please check the diagnostic logs for more information.
+        Test Run Aborted.`
