@@ -11,6 +11,8 @@ public class ProductService : IProductService
 
     public IEnumerable<Product> GetAllProducts() => _productRepository.GetAll();
 
+    public IEnumerable<Product> GetByCategoryId(int categoryId) => _productRepository.GetByCategoryId(categoryId);
+
     public Product GetProductById(int id) => _productRepository.GetById(id);
 
     public void AddProduct(Product product) => _productRepository.Add(product);
