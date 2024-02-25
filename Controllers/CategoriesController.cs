@@ -1,7 +1,8 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Models;
 using Services;
-
-using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace Controllers
@@ -10,21 +11,36 @@ namespace Controllers
     [Route("api/category")]
     public class CategoriesController : ControllerBase
     {
+        private readonly ILogger<CategoriesController> _logger;
         private readonly ICategoryService _categoryService;
 
-        public CategoriesController(ICategoryService categoryService)
+        public CategoriesController(ILogger<CategoriesController> logger, ICategoryService categoryService)
         {
+            _logger = logger;
             _categoryService = categoryService;
         }
 
         [HttpGet]
-        public IEnumerable<Category> GetAllCategories() => _categoryService.GetAllCategories();
+        public IEnumerable<Category> GetAllCategories()
+        {
+            _logger.LogInformation("Retrieving all categories.");
+            return _categoryService.GetAllCategories();
+        }
 
         [HttpPost]
         public IActionResult AddCategory(Category category)
         {
-            _categoryService.AddCategory(category);
-            return Ok();
+            try
+            {
+                _categoryService.AddCategory(category);
+                _logger.LogInformation($"Category with ID {category.Id} added successfully.");
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred while adding the category: {ex.Message}");
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
         }
 
         [HttpPut("{id}")]
@@ -32,18 +48,37 @@ namespace Controllers
         {
             if (id != category.Id)
             {
-                return BadRequest();
+                _logger.LogWarning("Category ID in the route does not match the ID in the request body.");
+                return BadRequest("Category ID in the route does not match the ID in the request body.");
             }
 
-            _categoryService.UpdateCategory(category);
-            return Ok();
+            try
+            {
+                _categoryService.UpdateCategory(category);
+                _logger.LogInformation($"Category with ID {id} updated successfully.");
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred while updating the category: {ex.Message}");
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteCategory(int id)
         {
-            _categoryService.DeleteCategory(id);
-            return Ok();
+            try
+            {
+                _categoryService.DeleteCategory(id);
+                _logger.LogInformation($"Category with ID {id} deleted successfully.");
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An error occurred while deleting the category: {ex.Message}");
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
         }
     }
 }
