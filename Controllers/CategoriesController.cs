@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/category")]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;

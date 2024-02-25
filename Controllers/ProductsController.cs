@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/product")]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
