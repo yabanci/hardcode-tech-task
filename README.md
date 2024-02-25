@@ -50,4 +50,50 @@ Usage
 You can use tools like Postman or curl to interact with the API endpoints.
 
 ## Documentation
-For more detailed documentation, please refer to the API documentation.
+
+### API Endpoints
+
+#### Retrieve All Products
+
+- **URL:** `/api/product`
+- **Method:** GET
+- **Description:** Retrieves all products.
+- **Response:** Returns a list of products in JSON format.
+
+#### Retrieve Product by ID
+
+- **URL:** `/api/product/{id}`
+- **Method:** GET
+- **Description:** Retrieves a specific product by its ID.
+- **Parameters:**
+  - `{id}`: The unique identifier of the product.
+- **Response:** Returns the product details in JSON format if found, or a 404 Not Found error if the product does not exist.
+
+#### Add New Product
+
+- **URL:** `/api/product`
+- **Method:** POST
+- **Description:** Adds a new product.
+- **Request Body:** JSON object containing the details of the new product.
+- **Response:** Returns a 200 OK response if the product is successfully added.
+
+#### Update Product
+
+- **URL:** `/api/product/{id}`
+- **Method:** PUT
+- **Description:** Updates an existing product.
+- **Parameters:**
+  - `{id}`: The unique identifier of the product to be updated.
+- **Request Body:** JSON object containing the updated details of the product.
+- **Response:** Returns a 200 OK response if the product is successfully updated, or a 400 Bad Request error if the request is invalid.
+
+#### Delete Product
+
+- **URL:** `/api/product/{id}`
+- **Method:** DELETE
+- **Description:** Deletes a product by its ID.
+- **Parameters:**
+  - `{id}`: The unique identifier of the product to be deleted.
+- **Response:** Returns a 200 OK response if the product is successfully deleted, or a 404 Not Found error if the product does not exist.
+
+For more detailed information on each endpoint, including request and response examples, please refer to the [API documentation](http://localhost:PORT/swagger/index.html).
