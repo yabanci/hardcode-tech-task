@@ -44,6 +44,11 @@ namespace Controllers
                 _logger.LogInformation($"Category with ID {category.Id} added successfully.");
                 return Ok();
             }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError($"An error occurred while adding the category: {ex.Message}");
+                return Conflict($"Category with ID {category.Id} already exists.");
+            }
             catch (Exception ex)
             {
                 _logger.LogError($"An error occurred while adding the category: {ex.Message}");
@@ -66,6 +71,11 @@ namespace Controllers
                 _logger.LogInformation($"Category with ID {id} updated successfully.");
                 return Ok();
             }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError($"An error occurred while updating the category: {ex.Message}");
+                return NotFound($"Category with ID {id} not found.");
+            }
             catch (Exception ex)
             {
                 _logger.LogError($"An error occurred while updating the category: {ex.Message}");
@@ -81,6 +91,11 @@ namespace Controllers
                 _categoryService.DeleteCategory(id);
                 _logger.LogInformation($"Category with ID {id} deleted successfully.");
                 return Ok();
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError($"An error occurred while deleting the category: {ex.Message}");
+                return NotFound($"Category with ID {id} not found.");
             }
             catch (Exception ex)
             {
